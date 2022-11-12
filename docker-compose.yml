@@ -16,8 +16,6 @@ services:
     ports:
       - 8080:8080      # Device -> controller
       - 8888:8443      # Web UI
-      - 8843:8843      # HTTPS redirection
-      - 8880:8880      # HTTP redirect
       - 3478:3478/udp  # STUN
     volumes:
       - config:/var/lib/unifi
