@@ -4,6 +4,10 @@ volumes:
   log: {}
   run: {}
 
+networks:
+  caddy:
+    external: true
+
 services:
   unifi:
     image: ryansch/unifi-rpi:${UNIFI_VERSION}
@@ -12,9 +16,18 @@ services:
       JAVA_OPTS: -Xmx1024M
     ports:
       - 8080:8080      # Device -> controller
-      - 8888:8443      # Web UI
       - 3478:3478/udp  # STUN
+    networks:
+      - default
+      - caddy
     volumes:
       - config:/var/lib/unifi
       - log:/usr/lib/unifi/logs
       - run:/usr/lib/unifi/run
+    labels:
+      caddy: unifi.mafro.net
+      caddy.tls.ca: https://ca.mafro.net:4433/acme/acme/directory
+      caddy.tls.ca_root: /root/step_ca.crt
+      caddy.reverse_proxy: "{{upstreams https 8443}}"
+      caddy.reverse_proxy.transport: http
+      caddy.reverse_proxy.transport.tls_insecure_skip_verify:
