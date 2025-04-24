@@ -9,7 +9,7 @@ services:
     image: ryansch/unifi-rpi:${UNIFI_VERSION}
     restart: unless-stopped
     environment:
-      JAVA_OPTS: -Xmx512M
+      JAVA_OPTS: -Xmx1024M
     ports:
       - 8080:8080      # Device -> controller
       - 8888:8443      # Web UI
