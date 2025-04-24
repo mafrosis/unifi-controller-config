@@ -2,10 +2,7 @@
 volumes:
   config: {}
   log: {}
-  log2: {}
   run: {}
-  run2: {}
-  work: {}
 
 services:
   unifi:
@@ -20,7 +17,4 @@ services:
     volumes:
       - config:/var/lib/unifi
       - log:/usr/lib/unifi/logs
-      - log2:/var/log/unifi
       - run:/usr/lib/unifi/run
-      - run2:/run/unifi
-      - work:/usr/lib/unifi/work
